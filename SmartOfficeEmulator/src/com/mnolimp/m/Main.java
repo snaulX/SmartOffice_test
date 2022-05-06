@@ -23,6 +23,8 @@ public class Main extends JFrame {
 
         panelLeft.setBackground(Color.gray);
         panelRight.setBackground(Color.GREEN);
+        panelLeft.setLayout(new GridLayout(7, 1));
+        panelRight.setLayout(new GridLayout(8, 1));
 
         buttonCoffeeMachine.addActionListener(new ActionListener() {
             @Override
@@ -34,7 +36,7 @@ public class Main extends JFrame {
 
         panelLeft.add(buttonCoffeeMachine);
 
-        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        container.setLayout(new GridLayout());
         container.add(panelLeft);
         container.add(panelRight);
         setContentPane(container);
