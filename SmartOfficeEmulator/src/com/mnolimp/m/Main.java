@@ -2,26 +2,42 @@ package com.mnolimp.m;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Main extends JFrame {
 
-    private JPanel container = new JPanel();
-    private JPanel panelLeft = new JPanel();
-    private JPanel panelRight = new JPanel();
-    private JSplitPane splitPane;
+    static JPanel container = new JPanel();
+    static JPanel panelLeft = new JPanel();
+    static JPanel panelRight = new JPanel();
+
+    JButton buttonCoffeeMachine = new JButton("Coffee Machine");
 
     public Main(){
+        super("Emulator");
+
+        setVisible(true);
+
+        setSize(500, 500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        
+
         panelLeft.setBackground(Color.gray);
         panelRight.setBackground(Color.GREEN);
-        container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
-        panelLeft.setBounds(0,0,getWidth()/4, getHeight()/4);
+
+        buttonCoffeeMachine.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CoffeeMachine.setCoffeeMachineLabel();
+                setContentPane(container);
+            }
+        });
+
+        panelLeft.add(buttonCoffeeMachine);
+
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         container.add(panelLeft);
         container.add(panelRight);
         setContentPane(container);
-        setSize(300, 300);
-        setVisible(true);
     }
 
     public static void main(String[] args) {
