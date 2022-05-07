@@ -7,21 +7,17 @@ import java.awt.event.ActionListener;
 
 public class CoffeeMachine {
     static JButton buttonPrepareCoffee = new JButton("Prepare a coffee");
-    static JButton buttonSmallVolume = new JButton("Small volume");
-    static JButton buttonBigVolume = new JButton("Big volume");
-    static JButton buttonNoSugar = new JButton("No sugar");
+    static JButton buttonNoCoffee = new JButton("No coffee");
+    static JButton buttonNoMilk = new JButton("No milk");
     static JButton buttonNoWater = new JButton("No water");
-    static JButton buttonSoftCoffee = new JButton("Soft coffee");
-    static JButton buttonStrongCoffee = new JButton("Strong coffee");
+    static JButton buttonDirty = new JButton("Dirty");
 
     public static void setCoffeeMachineLabel(){
         setCoffeeMachineColor();
         Main.panelRight.add(buttonPrepareCoffee);
-        Main.panelRight.add(buttonSmallVolume);
-        Main.panelRight.add(buttonBigVolume);
-        Main.panelRight.add(buttonSoftCoffee);
-        Main.panelRight.add(buttonStrongCoffee);
-        Main.panelRight.add(buttonNoSugar);
+        Main.panelRight.add(buttonNoCoffee);
+        Main.panelRight.add(buttonDirty);
+        Main.panelRight.add(buttonNoMilk);
         Main.panelRight.add(buttonNoWater);
     }
 
@@ -29,12 +25,10 @@ public class CoffeeMachine {
         setCoffeeClickListeners();
 
         buttonPrepareCoffee.setBackground(Color.WHITE);
-        buttonSmallVolume.setBackground(Color.WHITE);
-        buttonBigVolume.setBackground(Color.WHITE);
-        buttonNoSugar.setBackground(Color.RED);
+        buttonNoCoffee.setBackground(Color.RED);
+        buttonNoMilk.setBackground(Color.RED);
         buttonNoWater.setBackground(Color.RED);
-        buttonSoftCoffee.setBackground(Color.WHITE);
-        buttonStrongCoffee.setBackground(Color.WHITE);
+        buttonDirty.setBackground(Color.RED);
     }
 
     public static void setCoffeeClickListeners(){
@@ -44,19 +38,13 @@ public class CoffeeMachine {
 
             }
         });
-        buttonSmallVolume.addActionListener(new ActionListener() {
+        buttonNoCoffee.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
             }
         });
-        buttonBigVolume.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        buttonNoSugar.addActionListener(new ActionListener() {
+        buttonNoMilk.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -68,13 +56,7 @@ public class CoffeeMachine {
 
             }
         });
-        buttonSoftCoffee.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        buttonStrongCoffee.addActionListener(new ActionListener() {
+        buttonDirty.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 

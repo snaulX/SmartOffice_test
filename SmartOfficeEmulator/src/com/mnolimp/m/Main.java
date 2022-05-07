@@ -4,6 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main extends JFrame {
 
@@ -17,6 +25,44 @@ public class Main extends JFrame {
     JButton buttonConditioner = new JButton("Conditioner");
     JButton buttonComputer = new JButton("Computer");
     JButton buttonTV = new JButton("TV");
+
+    static URL url;
+    static HttpURLConnection connection;
+
+    static Map<String, String> parameters = new HashMap<>();
+
+    public static String getParamsString(final Map<String, String> params) {
+        final StringBuilder result = new StringBuilder();
+
+        params.forEach((name, value) -> {
+            try {
+                result.append(URLEncoder.encode(name, "UTF-8"));
+                result.append('=');
+                result.append(URLEncoder.encode(value, "UTF-8"));
+                result.append('&');
+            } catch (final UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        });
+
+        final String resultString = result.toString();
+        return !resultString.isEmpty()
+                ? resultString.substring(0, resultString.length() - 1)
+                : resultString;
+    }
+
+    public static void connect() throws IOException {
+        url = new URL("https://localhost:7075");
+        connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        parameters.put("coffee", "create");
+        connection.setDoOutput(true);
+        final DataOutputStream out = new DataOutputStream(connection.getOutputStream());
+        out.writeBytes(getParamsString(parameters));
+        out.flush();
+        out.close();
+    }
 
     public Main(){
         super("Emulator");
@@ -103,7 +149,8 @@ public class Main extends JFrame {
         setContentPane(container);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new Main();
+        connect();
     }
 }
