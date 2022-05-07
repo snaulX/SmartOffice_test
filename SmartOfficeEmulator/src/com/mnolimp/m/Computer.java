@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class Computer {
     static JButton buttonOnComputer = new JButton("On computer");
-    static JButton buttonOffComputer = new JButton("Of computer");
+    static JButton buttonOffComputer = new JButton("Off computer");
     static JButton buttonLockComputer = new JButton("Lock computer");
     static JButton buttonUnlockComputer = new JButton("Unlock computer");
     static JButton buttonRemoteAccess = new JButton("Remote access");

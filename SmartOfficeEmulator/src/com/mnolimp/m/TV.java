@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class TV {
     static JButton buttonOnTV = new JButton("On TV");
-    static JButton buttonOffTV = new JButton("Of computer");
+    static JButton buttonOffTV = new JButton("Off TV");
     static JButton buttonShowPicture = new JButton("Show picture");
     static JButton buttonSlideShow = new JButton("Slide show");
     static JButton buttonShowVideo = new JButton("Show video");
