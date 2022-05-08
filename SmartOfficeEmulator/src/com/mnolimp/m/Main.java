@@ -1,15 +1,20 @@
 package com.mnolimp.m;
 
+import com.sun.deploy.net.MessageHeader;
+import sun.net.www.http.HttpClient;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.*;
-import java.nio.charset.StandardCharsets;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,42 +31,39 @@ public class Main extends JFrame {
     JButton buttonComputer = new JButton("Computer");
     JButton buttonTV = new JButton("TV");
 
-    static URL url;
     static HttpURLConnection connection;
+    static String urlParameters = "coffee/0/name";
 
-    static Map<String, String> parameters = new HashMap<>();
+    public static void connectToServer() throws IOException {
 
-    public static String getParamsString(final Map<String, String> params) {
-        final StringBuilder result = new StringBuilder();
+        //HttpClient client = HttpClient.New(new URL("http://127.0.0.1:5000/coffee/0/name"));
 
-        params.forEach((name, value) -> {
-            try {
-                result.append(URLEncoder.encode(name, "UTF-8"));
-                result.append('=');
-                result.append(URLEncoder.encode(value, "UTF-8"));
-                result.append('&');
-            } catch (final UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        });
 
-        final String resultString = result.toString();
-        return !resultString.isEmpty()
-                ? resultString.substring(0, resultString.length() - 1)
-                : resultString;
-    }
-
-    public static void connect() throws IOException {
-        url = new URL("https://localhost:7075");
+        URL url = new URL("http://127.0.0.1:5000/coffee/0/name");
         connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/json");
-        parameters.put("coffee", "create");
+        connection.setRequestMethod("GET");
         connection.setDoOutput(true);
-        final DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-        out.writeBytes(getParamsString(parameters));
-        out.flush();
-        out.close();
+        connection.setConnectTimeout(10000);
+
+        System.out.println("Send 'HTTP GET' request to : " + url);
+
+        Integer responseCode = connection.getResponseCode();
+        System.out.println("Response Code : " + responseCode);
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            BufferedReader inputReader = new BufferedReader(
+                    new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = inputReader.readLine()) != null) {
+                response.append(inputLine);
+            }
+
+            inputReader.close();
+
+            System.out.println(response.toString());
+        }
     }
 
     public Main(){
@@ -151,6 +153,6 @@ public class Main extends JFrame {
 
     public static void main(String[] args) throws IOException {
         new Main();
-        connect();
+        connectToServer();
     }
 }
